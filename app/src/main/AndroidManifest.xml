@@ -9,12 +9,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.ActivitySystem">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.ActivitySystem" />
+        <activity android:name=".activity.ActivityWebView" />
+        <activity android:name=".activity.ActivityBitmap" />
+        <activity android:name=".activity.ActivityDialog" />
+        <activity android:name=".activity.ActivitySignature" />
+        <activity android:name=".activity.ActivityScroll" />
 
     </application>
 

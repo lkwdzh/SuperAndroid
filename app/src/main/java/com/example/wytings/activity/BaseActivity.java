@@ -67,13 +67,15 @@ public abstract class BaseActivity extends Activity {
     private void baseInit() {
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
-
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 BaseActivity.this.handleMessage(msg);
             }
         };
+        if (getActionBar() != null) {
+            getActionBar().setTitle(this.getClass().getSimpleName());
+        }
     }
 
     protected abstract void initialize();

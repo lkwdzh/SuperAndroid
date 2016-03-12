@@ -2,16 +2,34 @@ package com.example.wytings.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Rex on 2016/3/12.
  * https://github.com/wytings
  */
 public class ContextUtils {
+
+    public static List<String> getActivities(Context context) {
+        List<String> result = new ArrayList<>();
+        try {
+            ActivityInfo[] activities = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES).activities;
+            for (ActivityInfo activityInfo : activities) {
+                result.add(activityInfo.name);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     public static boolean isNetworkAvailable(Context context) {
         NetworkInfo info = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
