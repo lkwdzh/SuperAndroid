@@ -1,0 +1,61 @@
+package com.example.wytings.utils;
+
+import android.app.Activity;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+
+/**
+ * Created by Rex on 2016/3/12.
+ * https://github.com/wytings
+ */
+public class ContextUtils {
+
+    public static boolean isNetworkAvailable(Context context) {
+        NetworkInfo info = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        if (info != null) {
+            return info.isAvailable();
+        }
+        return false;
+    }
+
+    public static boolean isWifiAvailable(Context context) {
+        NetworkInfo info = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        if (info != null) {
+            if (info.getType() == ConnectivityManager.TYPE_WIFI)
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean isMobileAvailable(Context context) {
+        NetworkInfo info = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+        if (info != null) {
+            if (info.getType() == ConnectivityManager.TYPE_MOBILE)
+                return true;
+        }
+        return false;
+    }
+
+    public static int dip2px(Context context, float dipValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
+
+    public static int px2dip(Context context, float pxValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+    public static void hideKeybord(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager) activity
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (activity.getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
+            if (activity.getCurrentFocus() != null)
+                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+}
