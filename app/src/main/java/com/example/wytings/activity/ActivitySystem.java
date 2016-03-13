@@ -15,7 +15,7 @@ public class ActivitySystem extends BaseActivity {
     @Override
     protected void initialize() {
         final TextView textView = new TextView(this);
-        setCustomContent(textView);
+        setExtraContent(textView);
         setOnButtonClickListener("System Info", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

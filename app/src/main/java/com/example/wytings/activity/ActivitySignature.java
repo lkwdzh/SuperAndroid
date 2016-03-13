@@ -24,7 +24,7 @@ public class ActivitySignature extends BaseActivity {
     @Override
     protected void initialize() {
         signatureView = new SignatureView(this);
-        setCustomContent(signatureView);
+        setExtraContent(signatureView);
         setOnButtonClickListener("Clear", new View.OnClickListener() {
             @Override
             public void onClick(View v) {

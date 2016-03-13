@@ -37,7 +37,7 @@ public class ActivityBitmap extends BaseActivity {
         });
 
         imageView = new ImageView(this);
-        setCustomContent(imageView);
+        setExtraContent(imageView);
     }
 
     private void checkBitmap() {

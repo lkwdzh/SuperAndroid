@@ -18,7 +18,7 @@ public class ActivityScroll extends BaseActivity {
 
     @Override
     protected void initialize() {
-        setCustomContent(R.layout.activity_scroll);
+        setExtraContent(R.layout.activity_scroll);
         scrollView = ButterKnife.findById(content, R.id.scrollView);
         scrollView.setOnScrollChangeListener(new SuperScrollView.OnScrollChangeListener() {
             @Override

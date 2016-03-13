@@ -39,11 +39,11 @@ public abstract class BaseActivity extends Activity {
         initialize();
     }
 
-    public void setCustomContent(int layoutResID) {
+    public void setExtraContent(int layoutResID) {
         content.addView(View.inflate(this, layoutResID, null));
     }
 
-    public void setCustomContent(View view) {
+    public void setExtraContent(View view) {
         content.addView(view);
     }
 

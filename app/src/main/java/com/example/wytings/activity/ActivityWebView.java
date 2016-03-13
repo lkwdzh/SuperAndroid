@@ -30,7 +30,7 @@ public class ActivityWebView extends BaseActivity {
     @Override
     protected void initialize() {
         webView = new WebView(this);
-        setCustomContent(webView);
+        setExtraContent(webView);
         initWebView();
         futureTask = new FutureTask<String>(new Callable<String>() {
             @Override

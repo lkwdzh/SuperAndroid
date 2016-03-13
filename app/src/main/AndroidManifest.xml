@@ -22,6 +22,7 @@
         <activity android:name=".activity.ActivityDialog" />
         <activity android:name=".activity.ActivitySignature" />
         <activity android:name=".activity.ActivityScroll" />
+        <activity android:name=".activity.ActivityDrawable" />
 
     </application>
 
