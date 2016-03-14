@@ -3,28 +3,27 @@ This project contains some super custom views which Android native widgets don't
 
 
 ## Activity Details
- * MainActivity: load all activities that are registered in AndroidManifest.xml 
+ * MainActivity - load all activities that are registered in AndroidManifest.xml 
  
- * ActivityBitmap: show the funxtion of BitmapFactory when dealing big image
+ * ActivityBitmap - use BitmapFactory when dealing big image
  
- * ActivityDialog: single wait dialog demo
+ * ActivityDialog - wait dialog demo
  
- * ActivityDrawable: show the drawable effect->frame control
+ * ActivityDrawable - show the drawable effect->frame control
  
- * ActivityRecyclerView: simplely show how to use recyclerView
+ * ActivityRecyclerView - how to use recyclerView
  
- * ActivityScroll: SuperScrollView demo shows the function of setOnScrollChangeListener 
+ * ActivityScroll - the function setOnScrollChangeListener of SuperScrollView
  
- * ActivitySignature: a demo of signature in app.
+ * ActivitySignature - signature in app.
  
- * ActivitySystem: show the way of getting Android sysytem information
+ * ActivitySystem - get Android sysytem information
  
- * ActivityWebView: demo for the interaction between Javascript and Webview 
+ * ActivityWebView - the interaction between Javascript and Webview 
  
 ## Widget Details
- * ElasticScrollView: a ScrollView which can be elastic when over scrolling.
  
- * SuperScrollView: a scrollView whith OnScrollChangeListener
+ * SuperScrollView - a ScrollView whith OnScrollChangeListener
  
- * WaitDialog: a simple way to create a waiting dialog
+ * WaitDialog - a simple way to create a waiting dialog
 
