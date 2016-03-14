@@ -21,7 +21,7 @@ This project contains some super custom views which Android native widgets don't
  
  * ActivityWebView: demo for the interaction between Javascript and Webview 
  
- ## Widget Details
+## Widget Details
  * ElasticScrollView: a ScrollView which can be elastic when over scrolling.
  
  * SuperScrollView: a scrollView whith OnScrollChangeListener
