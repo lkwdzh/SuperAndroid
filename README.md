@@ -9,7 +9,7 @@ This project contains some super custom views which Android native widgets don't
  
  * ActivityDialog - wait dialog demo
  
- * ActivityDrawable - show the drawable effect->frame control
+ * ActivityDrawable - show drawable effect->frame control,dash line divider
  
  * ActivityRecyclerView - how to use recyclerView
  
