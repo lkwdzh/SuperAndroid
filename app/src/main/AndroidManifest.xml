@@ -23,6 +23,7 @@
         <activity android:name=".activity.ActivitySignature" />
         <activity android:name=".activity.ActivityScroll" />
         <activity android:name=".activity.ActivityDrawable" />
+        <activity android:name=".activity.ActivityRecyclerView" />
 
     </application>
 

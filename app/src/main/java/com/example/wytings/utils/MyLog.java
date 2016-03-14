@@ -13,10 +13,6 @@ public class MyLog {
     private static int lineNumber;
 
     public static void d(Object log) {
-        d("" + log);
-    }
-
-    public static void d(String log) {
         getMethodInfo(new Throwable().getStackTrace());
         Log.d(TAG, "[" + className + "]" + "-[" + lineNumber + "]-[" + methodName + "] ----> " + log);
     }

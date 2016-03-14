@@ -78,6 +78,10 @@ public abstract class BaseActivity extends Activity {
         }
     }
 
+    public <T extends View> T findView(int id) {
+        return ButterKnife.findById(content, id);
+    }
+
     protected abstract void initialize();
 
     public Handler getHandler() {
