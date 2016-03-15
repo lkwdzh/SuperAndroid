@@ -1,5 +1,5 @@
 # SuperAndroid
-This project contains some super custom views which Android native widgets don't provide for us. And this project is more like a demo project but I would do my best to show your the good-looking codes in the master branch. 
+This project contains some super custom views which Android native widgets don't provide for us and some demos which show you how to use some custom views and APIs. 
 
 
 ## Activity Details
