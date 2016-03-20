@@ -26,7 +26,7 @@ public abstract class BaseActivity extends Activity {
     private int index = 0;
     private Handler handler;
 
-    @Bind({R.id.button1, R.id.button2, R.id.button3})
+    @Bind({R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5})
     List<Button> buttons;
 
     @Bind(R.id.content)

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Super Android</string>
+    <string name="dp_title">dp value</string>
+    <string name="px_title">px value</string>
 </resources>
