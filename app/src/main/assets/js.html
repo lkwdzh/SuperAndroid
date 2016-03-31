@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!-- saved from url=(0032)http://localhost:8080/jsandroid/ -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -11,32 +10,18 @@
     <meta name="Handheldfriendly" content="true">
     <meta name="viewport" content="width=100%; initial-scale=1.0; user-scalable=yes">
     <meta name="robots" content="all">
-    <meta name="keywords" contect="doodle, mobile, doodlemobile, game, games">
-    <meta name="description" content="Make People's Mobile Life More Connected Through Games.">
 
-    <title>jsandroid_test</title>
+    <title>JavaScript Android Test</title>
 
     <script type="text/javascript" language="javascript">
+	
+	function htmlCallJava(){
+		var str = window.AndroidInterface.HtmlCallJava("this string is from javaScript");
+		document.getElementById("id_input_for_html").value = str;
+	}
 
-	function showString(str){
-		alert(str);
-	}
-	
-	function showHtmlcallJava(){
-		var str = window.androidInterface.HtmlcallJava();
-		alert(str);
-	}
-	
-	function showHtmlcallJava2(){
-		var str = window.androidInterface.HtmlcallJava2("showString");
-	}
-	
-	function showFromHtml(){
-		document.getElementById("id_input").value = "Java call Html";
-	}
-	
-	function showFromHtml2( param ){
-		document.getElementById("id_input2").value = "Java call Html : " + param; 
+	function javaCallHtml(param){
+		document.getElementById("id_input_for_java").value = param;
 	}
 
     </script>
@@ -45,32 +30,21 @@
 
 <body>
 
-hello IT-homer
+JavaScript Android Test
 
 <br>
 <br>
 <br>
-
-<input type="button" value="HtmlcallJava" onclick="showHtmlcallJava()"/>
+<input id="id_input_for_html" style="width: 100%" type="text" value="null"/>
 <br>
-<input type="button" value="HtmlcallJava2" onclick="showHtmlcallJava2()"/>
-
-<br>
-<br>
-<br>
-<br>
-
-<input id="id_input" style="width: 90%" type="text" value="null"/>
-<br>
-<input type="button" value="JavacallHtml" onclick="window.androidInterface.JavacallHtml()"/>
+<input type="button" value="Html call Java" onclick="htmlCallJava()"/>
 
 <br>
 <br>
+<input id="id_input_for_java" style="width: 100%" type="text" value="null"/>
 <br>
+<input type="button" value="Java call Html" onclick="window.AndroidInterface.JavaCallHtml()"/>
 
-<input id="id_input2" style="width: 90%" type="text" value="null"/>
-<br>
-<input type="button" value="JavacallHtml2" onclick="window.androidInterface.JavacallHtml2()"/>
 
 </body>
 </html>
