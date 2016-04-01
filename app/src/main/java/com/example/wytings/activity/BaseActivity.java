@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.example.wytings.R;
 import com.example.wytings.utils.MyLog;
+import com.example.wytings.widget.WaitDialog;
 
 import java.util.List;
 
@@ -25,6 +26,7 @@ public abstract class BaseActivity extends Activity {
 
     private int index = 0;
     private Handler handler;
+    private WaitDialog waitDialog;
 
     @Bind({R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5})
     List<Button> buttons;
@@ -67,6 +69,7 @@ public abstract class BaseActivity extends Activity {
     private void baseInit() {
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
+        waitDialog = new WaitDialog(this);
         handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -76,6 +79,14 @@ public abstract class BaseActivity extends Activity {
         if (getActionBar() != null) {
             getActionBar().setTitle(this.getClass().getSimpleName());
         }
+    }
+
+    public void showWaitingDialog() {
+        waitDialog.show();
+    }
+
+    public void dismissWaitingDialog() {
+        waitDialog.dismiss();
     }
 
     public <T extends View> T findView(int id) {

@@ -3,6 +3,8 @@ package com.example.wytings.activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -53,5 +55,22 @@ public class MainActivity extends ListActivity {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private static final int EXIT = Menu.FIRST + 1;
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add(Menu.NONE, EXIT, 0, "Exit App");
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        if (item.getItemId() == EXIT) {
+            android.os.Process.killProcess(android.os.Process.myPid());
+        }
+        return super.onMenuItemSelected(featureId, item);
     }
 }
