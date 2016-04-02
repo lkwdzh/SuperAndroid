@@ -3,16 +3,14 @@ package com.example.wytings.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.wytings.R;
-import com.example.wytings.utils.MyLog;
 import com.example.wytings.widget.WaitDialog;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,15 +21,14 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends Activity {
 
-    private int index = 0;
     private WaitDialog waitDialog;
     private Toast toast;
 
-    @Bind({R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5})
-    List<Button> buttons;
+    @Bind(R.id.buttonsContainer)
+    LinearLayout buttonsContainer;
 
-    @Bind(R.id.content)
-    LinearLayout content;
+    @Bind(R.id.contentContainer)
+    LinearLayout contentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +38,18 @@ public abstract class BaseActivity extends Activity {
     }
 
     public void setExtraContent(int layoutResID) {
-        content.addView(View.inflate(this, layoutResID, null));
+        contentContainer.addView(View.inflate(this, layoutResID, null));
     }
 
     public void setExtraContent(View view) {
-        content.addView(view);
+        contentContainer.addView(view);
     }
 
     public void setOnButtonClickListener(String title, View.OnClickListener listener) {
-        if (index < buttons.size()) {
-            Button button = buttons.get(index);
-            button.setVisibility(View.VISIBLE);
-            button.setText(title);
-            button.setOnClickListener(listener);
-            index++;
-        } else {
-            MyLog.d("sorry, no more buttons");
-        }
+        Button button = new Button(this);
+        button.setText(title);
+        button.setOnClickListener(listener);
+        buttonsContainer.addView(button);
     }
 
     public Activity getActivity() {
@@ -72,6 +64,7 @@ public abstract class BaseActivity extends Activity {
         waitDialog = new WaitDialog(this);
         if (getActionBar() != null) {
             getActionBar().setTitle(this.getClass().getSimpleName());
+            getActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -88,10 +81,19 @@ public abstract class BaseActivity extends Activity {
         waitDialog.dismiss();
     }
 
-    public <T extends View> T findView(int id) {
-        return ButterKnife.findById(content, id);
+    public <T extends View> T findMyViewById(int id) {
+        return ButterKnife.findById(contentContainer, id);
     }
 
     protected abstract void initialize();
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

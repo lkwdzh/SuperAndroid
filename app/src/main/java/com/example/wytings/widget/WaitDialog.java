@@ -43,4 +43,31 @@ public class WaitDialog extends AlertDialog {
             }
         });
     }
+
+    @Override
+    public void show() {
+        try {
+            super.show();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void dismiss() {
+        try {
+            super.dismiss();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void cancel() {
+        try {
+            super.cancel();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

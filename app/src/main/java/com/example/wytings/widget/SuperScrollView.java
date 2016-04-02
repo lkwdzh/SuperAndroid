@@ -17,7 +17,7 @@ import android.widget.ScrollView;
 public class SuperScrollView extends ScrollView {
 
     private int lastScrollY = 0;
-    private int SCROLL_EVENT = 0x300;
+    private int SCROLL_EVENT = 1 << 5;
     private Handler handler;
     private OnScrollChangeListener scrollChangeListener;
     private View contentView;

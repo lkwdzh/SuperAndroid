@@ -17,7 +17,7 @@ public class ActivityDrawable extends BaseActivity {
     }
 
     private void initListView() {
-        ListView listView = findView(R.id.listView);
+        ListView listView = findMyViewById(R.id.listView);
         listView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new String[]{"item 1", "item 2", "item 3"}));
     }
 }

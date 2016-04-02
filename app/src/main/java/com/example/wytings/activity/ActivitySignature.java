@@ -64,6 +64,7 @@ public class ActivitySignature extends BaseActivity {
             initialize();
             mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
             mCanvas = new Canvas(mBitmap);
+
         }
 
         @Override
