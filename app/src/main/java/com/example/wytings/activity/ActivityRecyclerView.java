@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.wytings.R;
 import com.example.wytings.utils.MyLog;
-import com.example.wytings.utils.MyToast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,9 +105,9 @@ public class ActivityRecyclerView extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (v instanceof Button) {
-                    MyToast.show(getActivity(), ((Button) v).getText().toString());
+                    showToast(((Button) v).getText().toString());
                 } else {
-                    MyToast.show(getActivity(), "not a button");
+                    showToast("not a button");
                 }
             }
         }

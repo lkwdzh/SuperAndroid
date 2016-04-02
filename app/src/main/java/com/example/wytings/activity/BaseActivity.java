@@ -3,11 +3,10 @@ package com.example.wytings.activity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.wytings.R;
 import com.example.wytings.utils.MyLog;
@@ -25,8 +24,8 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends Activity {
 
     private int index = 0;
-    private Handler handler;
     private WaitDialog waitDialog;
+    private Toast toast;
 
     @Bind({R.id.button1, R.id.button2, R.id.button3, R.id.button4, R.id.button5})
     List<Button> buttons;
@@ -65,20 +64,20 @@ public abstract class BaseActivity extends Activity {
         return this;
     }
 
-    @SuppressLint("HandlerLeak")
+    @SuppressLint("all")
     private void baseInit() {
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
+        toast = Toast.makeText(this, null, Toast.LENGTH_SHORT);
         waitDialog = new WaitDialog(this);
-        handler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                BaseActivity.this.handleMessage(msg);
-            }
-        };
         if (getActionBar() != null) {
             getActionBar().setTitle(this.getClass().getSimpleName());
         }
+    }
+
+    public void showToast(Object msg) {
+        toast.setText(msg + "");
+        toast.show();
     }
 
     public void showWaitingDialog() {
@@ -95,17 +94,4 @@ public abstract class BaseActivity extends Activity {
 
     protected abstract void initialize();
 
-    public Handler getHandler() {
-        return handler;
-    }
-
-    protected void handleMessage(Message msg) {
-    }
-
-    @Override
-
-    protected void onDestroy() {
-        super.onDestroy();
-        handler.removeCallbacksAndMessages(null);
-    }
 }

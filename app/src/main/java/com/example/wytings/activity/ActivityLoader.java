@@ -5,7 +5,6 @@ import android.view.View;
 import com.example.wytings.utils.DataLoader;
 import com.example.wytings.utils.HttpUtils;
 import com.example.wytings.utils.MyLog;
-import com.example.wytings.utils.MyToast;
 
 /**
  * Created by Rex on 2016/4/1.
@@ -34,7 +33,7 @@ public class ActivityLoader extends BaseActivity {
                     @Override
                     public void onEnd(Object object) {
                         dismissWaitingDialog();
-                        MyToast.show(getActivity(), object);
+                        showToast(object);
                         MyLog.d(" onEnd ----------------- " + object);
                     }
                 });

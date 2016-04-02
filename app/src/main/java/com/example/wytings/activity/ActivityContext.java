@@ -4,7 +4,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.wytings.utils.ContextUtils;
-import com.example.wytings.utils.MyToast;
 
 /**
  * Created by Rex on 2016/3/20.
@@ -17,9 +16,9 @@ public class ActivityContext extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (ContextUtils.isNetworkAvailable(ActivityContext.this)) {
-                    MyToast.show(getActivity(), "network is available");
+                    showToast("network is available");
                 } else {
-                    MyToast.show(getActivity(), "network is not available");
+                    showToast("network is not available");
                 }
             }
         });
@@ -28,9 +27,9 @@ public class ActivityContext extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (ContextUtils.isMobileAvailable(ActivityContext.this)) {
-                    MyToast.show(getActivity(), "wifi is active now");
+                    showToast("wifi is active now");
                 } else if (ContextUtils.isWifiAvailable(ActivityContext.this)) {
-                    MyToast.show(getActivity(), "mobile network is active now");
+                    showToast("mobile network is active now");
                 }
             }
         });

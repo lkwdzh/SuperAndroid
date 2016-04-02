@@ -22,6 +22,7 @@ public class ActivityPeriodicTask extends BaseActivity {
             @Override
             public void onStart() {
                 showWaitingDialog();
+                showToast("on start");
             }
 
             @Override
@@ -30,9 +31,11 @@ public class ActivityPeriodicTask extends BaseActivity {
                 Thread.sleep(3000);
                 MyLog.d("this is once valid call - " + onceValidIndex);
                 if (onceValidIndex == 3) {
+                    showToast("end to once valid call");
                     MyLog.d("this is once valid call end ");
                     return true;
                 }
+                showToast("fail to once valid call");
                 return false;
             }
 
@@ -40,12 +43,14 @@ public class ActivityPeriodicTask extends BaseActivity {
             public Object onCall() throws Exception {
                 Thread.sleep(3000);
                 MyLog.d("this is onCall ");
+                showToast("on call");
                 return onCallIndex++;
             }
 
             @Override
             public void onEnd(Object object) {
                 dismissWaitingDialog();
+                showToast("on end");
                 MyLog.d("this is onEnd - " + object);
             }
         });
