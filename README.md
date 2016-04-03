@@ -5,9 +5,12 @@ This project contains some super custom views which enhance Android native widge
 ![Screenshot](https://github.com/wytings/SuperAndroid/blob/master/screenshot/periodicTask.gif)
 ![Screenshot](https://github.com/wytings/SuperAndroid/blob/master/screenshot/scrollView.gif)
 ![Screenshot](https://github.com/wytings/SuperAndroid/blob/master/screenshot/webview.gif)
+![Screenshot](https://github.com/wytings/SuperAndroid/blob/master/screenshot/MaterialDesign.gif)
 
 ## Activity Details
  * MainActivity - load all activities that are registered in AndroidManifest.xml 
+ 
+ * ActivityMaterialDesign - how to use google material design
  
  * ActivityBitmap - use BitmapFactory when dealing big image
  
