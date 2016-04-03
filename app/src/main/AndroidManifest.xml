@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".activity.ActivityMaterialDesign" />
         <activity android:name=".activity.ActivityPeriodicTask" />
         <activity android:name=".activity.ActivityLoader" />
         <activity android:name=".activity.ActivitySystem" />

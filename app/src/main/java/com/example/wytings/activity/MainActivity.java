@@ -1,11 +1,10 @@
 package com.example.wytings.activity;
 
-import android.app.ListActivity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -18,16 +17,26 @@ import java.util.List;
  * Created by Rex on 2016/3/12.
  * https://github.com/wytings
  */
-public class MainActivity extends ListActivity {
+public class MainActivity extends BaseActivity {
 
     private List<String> activityClasses;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void initialize() {
         activityClasses = ContextUtils.getActivities(this);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, getSimpleNames(activityClasses));
-        setListAdapter(arrayAdapter);
+        ListView listView = new ListView(this);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent();
+                intent.setClassName(getBaseActivity(), activityClasses.get(position));
+                startActivity(intent);
+
+            }
+        });
+        setExtraContent(listView);
     }
 
     private List<String> getSimpleNames(List<String> names) {
@@ -45,18 +54,6 @@ public class MainActivity extends ListActivity {
         return result;
     }
 
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        try {
-            Class clazz = Class.forName(activityClasses.get(position));
-            Intent intent = new Intent(this, clazz);
-            startActivity(intent);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static final int EXIT = Menu.FIRST + 1;
 
     @Override
@@ -67,10 +64,10 @@ public class MainActivity extends ListActivity {
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == EXIT) {
             android.os.Process.killProcess(android.os.Process.myPid());
         }
-        return super.onMenuItemSelected(featureId, item);
+        return super.onOptionsItemSelected(item);
     }
 }

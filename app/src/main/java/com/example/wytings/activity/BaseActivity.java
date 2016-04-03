@@ -1,8 +1,8 @@
 package com.example.wytings.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  * Created by Rex on 2016/3/12.
  * https://github.com/wytings
  */
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private WaitDialog waitDialog;
     private Toast toast;
@@ -62,9 +62,11 @@ public abstract class BaseActivity extends Activity {
         ButterKnife.bind(this);
         toast = Toast.makeText(this, null, Toast.LENGTH_SHORT);
         waitDialog = new WaitDialog(this);
-        if (getActionBar() != null) {
-            getActionBar().setTitle(this.getClass().getSimpleName());
-            getActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(this.getClass().getSimpleName());
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            if (this instanceof MainActivity)
+                getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
     }
 
