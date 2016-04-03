@@ -52,7 +52,7 @@ public abstract class BaseActivity extends Activity {
         buttonsContainer.addView(button);
     }
 
-    public Activity getActivity() {
+    public BaseActivity getBaseActivity() {
         return this;
     }
 
@@ -73,12 +73,13 @@ public abstract class BaseActivity extends Activity {
         toast.show();
     }
 
-    public void showWaitingDialog() {
-        waitDialog.show();
-    }
+    public void showWaitingDialog(boolean isShow) {
+        if (isShow) {
+            waitDialog.show();
+        } else {
+            waitDialog.dismiss();
+        }
 
-    public void dismissWaitingDialog() {
-        waitDialog.dismiss();
     }
 
     public <T extends View> T findMyViewById(int id) {

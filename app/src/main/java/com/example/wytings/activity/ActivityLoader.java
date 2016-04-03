@@ -20,7 +20,7 @@ public class ActivityLoader extends BaseActivity {
                 DataLoader.loadData(new DataLoader.DataLoaderCallback() {
                     @Override
                     public void onStart() {
-                        showWaitingDialog();
+                        showWaitingDialog(true);
                     }
 
                     @Override
@@ -32,7 +32,7 @@ public class ActivityLoader extends BaseActivity {
 
                     @Override
                     public void onEnd(Object object) {
-                        dismissWaitingDialog();
+                        showWaitingDialog(false);
                         showToast(object);
                         MyLog.d(" onEnd ----------------- " + object);
                     }

@@ -21,7 +21,7 @@ public class ActivityPeriodicTask extends BaseActivity {
         periodicTask.setPeriodicTaskCallback(new PeriodicTask.PeriodicTaskCallback() {
             @Override
             public void onStart() {
-                showWaitingDialog();
+                showWaitingDialog(true);
                 showToast("on start");
             }
 
@@ -49,7 +49,7 @@ public class ActivityPeriodicTask extends BaseActivity {
 
             @Override
             public void onEnd(Object object) {
-                dismissWaitingDialog();
+                showWaitingDialog(false);
                 showToast("on end");
                 MyLog.d("this is onEnd - " + object);
             }

@@ -51,9 +51,9 @@ public class ActivityRecyclerView extends BaseActivity {
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             MyLog.d("viewType=" + viewType);
             if (viewType == GROUP) {
-                return new MyViewHolder(new Button(getActivity()), viewType);
+                return new MyViewHolder(new Button(getBaseActivity()), viewType);
             } else if (viewType == CHILD) {
-                return new MyViewHolder(View.inflate(getActivity(), R.layout.recycler_view_item, null), viewType);
+                return new MyViewHolder(View.inflate(getBaseActivity(), R.layout.recycler_view_item, null), viewType);
             }
             return null;
         }

@@ -37,11 +37,11 @@ public class ActivityContext extends BaseActivity {
         setOnButtonClickListener("Hide KeyBoard", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContextUtils.hideKeyboard(getActivity());
+                ContextUtils.hideKeyboard(getBaseActivity());
             }
         });
 
-        EditText editText = new EditText(getActivity());
+        EditText editText = new EditText(getBaseActivity());
         setExtraContent(editText);
     }
 }
