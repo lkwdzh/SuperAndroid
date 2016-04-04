@@ -3,4 +3,7 @@
     <string name="dp_title">dp value</string>
     <string name="px_title">px value</string>
     <string name="check_input">Check Input</string>
+    <string name="selector_drawable">selector Drawable</string>
+    <string name="layer_list_drawable">layer-list Drawable</string>
+    <string name="shape_drawable">shape Drawable</string>
 </resources>

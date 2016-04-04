@@ -14,12 +14,24 @@
         android:background="@drawable/border_layer_list"
         android:text="@string/app_name" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_selector"
+        android:text="@string/selector_drawable" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_layer_list"
+        android:text="@string/layer_list_drawable" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:background="@drawable/corner_background"
         android:gravity="center"
-        android:text="@string/app_name" />
+        android:text="@string/shape_drawable" />
 
     <ListView
         android:id="@+id/listView"

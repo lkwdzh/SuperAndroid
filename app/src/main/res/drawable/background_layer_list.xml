@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <solid android:color="@android:color/holo_red_light" />
+        </shape>
+    </item>
+
+    <item
+        android:bottom="5dp"
+        android:left="5dp"
+        android:right="5dp"
+        android:top="5dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/background_light" />
+        </shape>
+    </item>
+
+    <item>
+        <selector>
+            <item android:state_pressed="true">
+                <transition
+                    android:opacity="transparent"
+                    android:paddingBottom="30dp"
+                    android:paddingLeft="10dp">
+                    <item android:drawable="@android:drawable/ic_delete" />
+                </transition>
+            </item>
+
+            <item android:state_selected="false">
+                <animated-rotate
+                    android:drawable="@android:drawable/dark_header"
+                    android:pivotX="30%"
+                    android:pivotY="70%"
+                    android:visible="true" />
+            </item>
+        </selector>
+    </item>
+
+
+</layer-list>
