@@ -6,6 +6,7 @@ This project contains some super custom views which enhance Android native widge
 ![Screenshot](https://github.com/wytings/SuperAndroid/blob/master/screenshot/scrollView.gif)
 ![Screenshot](https://github.com/wytings/SuperAndroid/blob/master/screenshot/webview.gif)
 ![Screenshot](https://github.com/wytings/SuperAndroid/blob/master/screenshot/MaterialDesign.gif)
+![Screenshot](https://github.com/wytings/SuperAndroid/blob/master/screenshot/recycler.gif)
 
 ## Activity Details
  * MainActivity - load all activities that are registered in AndroidManifest.xml 
