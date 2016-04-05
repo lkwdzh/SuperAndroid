@@ -1,20 +1,18 @@
 package com.example.wytings.activity;
 
+import android.graphics.Canvas;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.wytings.R;
-import com.example.wytings.utils.MyLog;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by Rex on 2016/3/13.
@@ -25,90 +23,92 @@ public class ActivityRecyclerView extends BaseActivity {
     @Override
     protected void initialize() {
 
-        RecyclerView recyclerView = new RecyclerView(this);
+        final RecyclerView recyclerView = new RecyclerView(this);
         setExtraContent(recyclerView);
+        
+        final MyRecyclerAdapter myRecyclerAdapter = new MyRecyclerAdapter(null);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyRecyclerAdapter());
+        recyclerView.setAdapter(myRecyclerAdapter);
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder source, RecyclerView.ViewHolder target) {
+                if (source.getItemViewType() != target.getItemViewType()) {
+                    return false;
+                }
+                int fromPosition = source.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+                Collections.swap(myRecyclerAdapter.getDataList(), fromPosition, toPosition);
+                myRecyclerAdapter.notifyItemMoved(fromPosition, toPosition);
+                return true;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+                myRecyclerAdapter.getDataList().remove(position);
+                myRecyclerAdapter.notifyItemRemoved(position);
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    final float alpha = 1 - Math.abs(dX) / (float) viewHolder.itemView.getWidth();
+                    viewHolder.itemView.setAlpha(alpha);
+                    viewHolder.itemView.setTranslationX(dX);
+                } else {
+                    super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+                }
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
     }
 
     class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
 
-        private int GROUP = 0;
-        private int CHILD = 1;
+        private List<String> list = new ArrayList<>();
 
-        private List<Pair<String, String>> pairs = new ArrayList<>();
+        public List<String> getDataList() {
+            return list;
+        }
 
-        public MyRecyclerAdapter() {
-            for (int i = 10; i < 50; i++) {
-                pairs.add(Pair.create("Text " + i, "Button " + i));
+        public MyRecyclerAdapter(List<String> data) {
+            if (data == null) {
+                for (int i = 0; i < 50; i++) {
+                    list.add("This is No." + i + " Item.");
+                }
+            } else {
+                list = data;
             }
+
         }
 
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            MyLog.d("viewType=" + viewType);
-            if (viewType == GROUP) {
-                return new MyViewHolder(new Button(getBaseActivity()), viewType);
-            } else if (viewType == CHILD) {
-                return new MyViewHolder(View.inflate(getBaseActivity(), R.layout.recycler_view_item, null), viewType);
-            }
-            return null;
+            return new MyViewHolder(View.inflate(getBaseActivity(), R.layout.recycler_view_item, null));
+
         }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            Pair<String, String> pair = pairs.get(position);
-            if (holder.type == GROUP) {
-                holder.button.setText(pair.second);
-            } else if (holder.type == CHILD) {
-                holder.textView.setText(pair.first);
-                holder.button.setText(pair.second);
-            }
+            holder.textView.setText(list.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return pairs.size();
+            return list.size();
         }
 
-        @Override
-        public int getItemViewType(int position) {
-            if (position % 10 == 0) {
-                return GROUP;
-            } else {
-                return CHILD;
-            }
-        }
+        class MyViewHolder extends RecyclerView.ViewHolder {
+            final TextView textView;
 
-        class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-            int type;
-            TextView textView;
-            Button button;
-
-            public MyViewHolder(View itemView, int viewType) {
+            public MyViewHolder(View itemView) {
                 super(itemView);
-                type = viewType;
-                if (viewType == GROUP) {
-                    button = (Button) itemView;
-                    itemView.setOnClickListener(this);
-                } else if (viewType == CHILD) {
-                    textView = ButterKnife.findById(itemView, R.id.text);
-                    button = ButterKnife.findById(itemView, R.id.button);
-                    button.setOnClickListener(this);
-                }
-            }
-
-            @Override
-            public void onClick(View v) {
-                if (v instanceof Button) {
-                    showToast(((Button) v).getText().toString());
-                } else {
-                    showToast("not a button");
-                }
+                textView = (TextView) itemView.findViewById(R.id.text);
             }
         }
     }
