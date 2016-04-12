@@ -17,6 +17,11 @@ public class MyLog {
         Log.d(TAG, "[" + className + "]" + "-[" + lineNumber + "]-[" + methodName + "] ----> " + log);
     }
 
+    public static void e(Object log) {
+        getMethodInfo(new Throwable().getStackTrace());
+        Log.e(TAG, "[" + className + "]" + "-[" + lineNumber + "]-[" + methodName + "] ----> " + log);
+    }
+
     private static void getMethodInfo(StackTraceElement[] sElements) {
         className = sElements[1].getFileName();
         lineNumber = sElements[1].getLineNumber();

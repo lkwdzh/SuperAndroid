@@ -16,7 +16,6 @@ public class DataLoader {
     private static Handler internalHandler = new Handler(Looper.getMainLooper());
 
     public static void loadData(final DataLoaderCallback callback) {
-
         executorService.submit(new Runnable() {
             Object result = null;
 
