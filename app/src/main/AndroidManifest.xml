@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.ActivityGraph" />
+        <activity android:name=".activity.ActivityGraph"
+            android:screenOrientation="landscape"/>
         <activity android:name=".activity.ActivityMaterialDesign" />
         <activity android:name=".activity.ActivityPeriodicTask" />
         <activity android:name=".activity.ActivityLoader" />

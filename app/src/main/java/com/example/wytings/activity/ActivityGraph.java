@@ -1,17 +1,19 @@
 package com.example.wytings.activity;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.wytings.R;
 import com.example.wytings.graph.CandleGraph;
 import com.example.wytings.graph.GraphType;
 import com.example.wytings.graph.GraphUtils;
+import com.example.wytings.graph.GridGraph;
+import com.example.wytings.graph.KLineModel;
 import com.example.wytings.graph.TimesGraph;
+import com.example.wytings.graph.TimesModel;
 import com.example.wytings.utils.DataLoader;
+import com.example.wytings.utils.MyLog;
+import com.example.wytings.widget.TabClickableLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,89 +24,121 @@ import java.util.List;
  */
 public class ActivityGraph extends BaseActivity {
 
-    List<View> graphViews = new ArrayList<>();
     List<String> titles = new ArrayList<>();
-    ViewPager viewPager;
-    TabLayout tabLayout;
+    TabClickableLayout tabLayout;
+    TimesGraph timesGraph;
+    CandleGraph candleGraph;
 
     @Override
     protected void initialize() {
         setExtraContent(R.layout.activity_graph);
-        viewPager = findMyViewById(R.id.viewPager);
         tabLayout = findMyViewById(R.id.tabLayout);
-
+        initGraph();
         titles.add("分时");
         titles.add("五日");
         titles.add("日K");
         titles.add("周K");
         titles.add("月K");
-
-        initGraph();
-        initUI();
-
-//        DataLoader.loadData(new DataLoader.DataLoaderCallback() {
-//            @Override
-//            public Object onCall() throws Exception {
-//                initGraph();
-//                return null;
-//            }
-//
-//            @Override
-//            public void onEnd(Object object) {
-//                initUI();
-//            }
-//        });
-    }
-
-    private void initUI() {
-        viewPager.setAdapter(new PagerAdapter() {
-
+        for (String title : titles) {
+            tabLayout.addTab(tabLayout.newTab().setText(title));
+        }
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public CharSequence getPageTitle(int position) {
-                return titles.get(position);
+            public void onTabSelected(TabLayout.Tab tab) {
+                MyLog.d("onTabSelected --- " + tab.getText() + " - " + tab.getPosition());
+                loadGraphData(tab.getPosition());
             }
 
             @Override
-            public int getCount() {
-                return graphViews.size();
+            public void onTabUnselected(TabLayout.Tab tab) {
+                MyLog.d("onTabUnselected --- " + tab.getText() + " - " + tab.getPosition());
             }
 
             @Override
-            public Object instantiateItem(ViewGroup container, int position) {
-                container.addView(graphViews.get(position));
-                return graphViews.get(position);
-            }
-
-            @Override
-            public void destroyItem(ViewGroup container, int position, Object object) {
-                container.removeView((View) object);
-            }
-
-            @Override
-            public boolean isViewFromObject(View view, Object object) {
-                return view == object;
+            public void onTabReselected(TabLayout.Tab tab) {
+                MyLog.d("onTabReselected --- " + tab.getText() + " - " + tab.getPosition());
+                loadGraphData(tab.getPosition());
             }
         });
-
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).select();
     }
 
     private void initGraph() {
-        TimesGraph timesGraphOne = new TimesGraph(this);
-        timesGraphOne.setTimesModels(GraphUtils.loadTimesGraphData(getBaseActivity(), GraphType.TIMELINE_ONE));
-        graphViews.add(timesGraphOne);
-        TimesGraph timesGraphFive = new TimesGraph(this);
-        timesGraphFive.setTimesModels(GraphUtils.loadTimesGraphData(getBaseActivity(), GraphType.TIMELINE_FIVE));
-        graphViews.add(timesGraphFive);
-        CandleGraph candleGraphDay = new CandleGraph(this);
-        candleGraphDay.setOriginalDataList(GraphUtils.loadKLineGraphData(getBaseActivity(), GraphType.KLINE_DAY));
-        graphViews.add(candleGraphDay);
-        CandleGraph candleGraphWeek = new CandleGraph(this);
-        candleGraphWeek.setOriginalDataList(GraphUtils.loadKLineGraphData(getBaseActivity(), GraphType.KLINE_WEEK));
-        graphViews.add(candleGraphWeek);
-        CandleGraph candleGraphMonth = new CandleGraph(this);
-        candleGraphMonth.setOriginalDataList(GraphUtils.loadKLineGraphData(getBaseActivity(), GraphType.KLINE_MONTH));
-        graphViews.add(candleGraphMonth);
+        timesGraph = findMyViewById(R.id.timesGraph);
+        timesGraph.setOnMoveListener(new GridGraph.OnMoveListener() {
+            @Override
+            public void onMove(Object object) {
+                TimesModel model = (TimesModel) object;
+                MyLog.d("timesGraph ----- " + object);
+                if (model == null) {
+                } else {
+                }
+            }
+        });
+        candleGraph = findMyViewById(R.id.candleGraph);
+        candleGraph.setOnMoveListener(new GridGraph.OnMoveListener() {
+            @Override
+            public void onMove(Object object) {
+                KLineModel model = (KLineModel) object;
+                MyLog.d("candleGraph ----- " + object);
+                if (model == null) {
+                } else {
+                }
+            }
+        });
+    }
 
+    private void loadGraphData(final int index) {
+        DataLoader.loadData(new DataLoader.DataLoaderCallback() {
+            @Override
+            public void onStart() {
+                tabLayout.setTabEnable(false);
+            }
+
+            @Override
+            public Object onCall() throws Exception {
+                getGraphData(index);
+                return null;
+            }
+
+            @Override
+            public void onEnd(Object object) {
+                updateGraph(index);
+                tabLayout.setTabEnable(true);
+            }
+        });
+    }
+
+    private void getGraphData(int index) {
+        GraphType type = GraphType.valueOf(index);
+        switch (type) {
+            case TIMELINE_ONE:
+            case TIMELINE_FIVE:
+                timesGraph.setTimesModels(GraphUtils.loadTimesGraphData(getBaseActivity(), type));
+                break;
+            case KLINE_DAY:
+            case KLINE_WEEK:
+            case KLINE_MONTH:
+                candleGraph.setOriginalDataList(GraphUtils.loadKLineGraphData(getBaseActivity(), type));
+                break;
+        }
+    }
+
+    private void updateGraph(int index) {
+        switch (GraphType.valueOf(index)) {
+            case TIMELINE_ONE:
+            case TIMELINE_FIVE:
+                candleGraph.setVisibility(View.GONE);
+                timesGraph.postInvalidate();
+                timesGraph.setVisibility(View.VISIBLE);
+                break;
+            case KLINE_DAY:
+            case KLINE_WEEK:
+            case KLINE_MONTH:
+                timesGraph.setVisibility(View.GONE);
+                candleGraph.postInvalidate();
+                candleGraph.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }

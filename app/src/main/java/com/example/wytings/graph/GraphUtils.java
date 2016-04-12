@@ -7,8 +7,9 @@ import com.example.wytings.utils.MyLog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -25,24 +26,34 @@ public class GraphUtils {
     private static final int RED = Color.parseColor("#F54642");
     private static final int GREEN = Color.parseColor("#29B32E");
 
-    public static void saveJson(Context context, Object list, String fileName) {
-        try {
-            Gson gson = new Gson();
-            String gString = gson.toJson(list);
-            FileOutputStream fileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE);
-            fileOutputStream.write(gString.getBytes());
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (Exception e) {
-            MyLog.e(e);
-        }
-    }
-
     public static int getColor(boolean isRed) {
         if (isRed) {
             return RED;
         } else {
             return GREEN;
+        }
+    }
+
+    public static String getValueInfo(double value, boolean returnUnit) {
+        String unit;
+        String result;
+        if (Math.abs(value) >= 1000000000000L) {
+            result = String.format("%.2f", value / 1000000000000L);
+            unit = "万亿";
+        } else if (Math.abs(value) >= 100000000) {
+            result = String.format("%.2f", value / 100000000);
+            unit = "亿";
+        } else if (Math.abs(value) >= 10000) {
+            result = String.format("%.2f", value / 10000);
+            unit = "万";
+        } else {
+            result = String.format("%.2f", value);
+            unit = "";
+        }
+        if (returnUnit) {
+            return unit;
+        } else {
+            return result;
         }
     }
 
@@ -58,8 +69,8 @@ public class GraphUtils {
         }
         try {
             Gson gson = new Gson();
-            List<TimesModel> result = gson.fromJson(new FileReader());
-            return result;
+            return gson.fromJson(StreamToString(context.getAssets().open(fileName)), new TypeToken<List<TimesModel>>() {
+            }.getType());
         } catch (Exception e) {
             MyLog.e(e);
         }
@@ -81,12 +92,26 @@ public class GraphUtils {
         }
         try {
             Gson gson = new Gson();
-            List<KLineModel> result = gson.fromJson(new FileReader(context.getAssets().openNonAssetFd(fileName).getFileDescriptor()),
+            return gson.fromJson(StreamToString(context.getAssets().open(fileName)),
                     new TypeToken<List<KLineModel>>() {
                     }.getType());
-            return result;
         } catch (Exception e) {
             MyLog.e(e);
+        }
+        return null;
+    }
+
+    private static String StreamToString(InputStream inputStream) {
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            StringBuilder builder = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                builder.append(line);
+            }
+            return builder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

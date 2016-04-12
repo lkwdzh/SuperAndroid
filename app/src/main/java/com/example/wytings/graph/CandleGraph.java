@@ -396,11 +396,11 @@ public class CandleGraph extends GridGraph {
             if (i < floats.size() - 1) {
                 drawTextBelowPoint(text1, left - X_LEFT_TEXT_OFFSET, y, Paint.Align.RIGHT, paint, canvas);
             } else {
-                drawTextBelowPoint(decimalFormat.format(maxVolume), left - X_LEFT_TEXT_OFFSET, y, Paint.Align.RIGHT, paint, canvas);
+                drawTextBelowPoint(GraphUtils.getValueInfo(maxVolume, false), left - X_LEFT_TEXT_OFFSET, y, Paint.Align.RIGHT, paint, canvas);
             }
         }
         canvas.drawLine(left, bottom, right, bottom, paint);
-        String text = decimalFormat.format(maxVolume) + "股";
+        String text = GraphUtils.getValueInfo(maxVolume, true) + "股";
         paint.setTextAlign(Paint.Align.RIGHT);
         canvas.drawText(text, left - X_LEFT_TEXT_OFFSET, bottom, paint);
     }

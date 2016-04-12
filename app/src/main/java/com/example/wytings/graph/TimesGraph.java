@@ -46,16 +46,15 @@ public class TimesGraph extends GridGraph {
     private float rateLowerY;
 
     private float touchX;
-    private float touchY;
     private boolean showDetails;
-    private boolean moveEnable = true;
+    private boolean isMovable = true;
     private int dayNumber;
 
     private float minPrice;
     private float maxPrice;
     private float maxVolume;
     private boolean isBottomVisible = true;
-    private float previousClosePrice = 161.8f;
+    private float previousClosePrice = 160.2f;
     private List<TimesModel> timesModels;
     private List<String> horizontalTitles;
     private List<PrivateModel> verticalTitles = new ArrayList<>();
@@ -141,8 +140,8 @@ public class TimesGraph extends GridGraph {
         this.timesModels = timesModels;
     }
 
-    public void setMoveEnable(boolean enable) {
-        moveEnable = enable;
+    public void setMovable(boolean enable) {
+        isMovable = enable;
     }
 
     public void setOnMoveListener(OnMoveListener onMoveListener) {
@@ -166,14 +165,13 @@ public class TimesGraph extends GridGraph {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (timesModels == null || !moveEnable) {
+        if (timesModels == null || !isMovable) {
             return super.onTouchEvent(event);
         }
         gestureDetector.onTouchEvent(event);
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_MOVE:
                 touchX = event.getRawX();
-                touchY = event.getRawY();
                 if (touchX < left || touchX > left + timesModels.size() * xPointInterval) {
                     return false;
                 }
@@ -201,7 +199,7 @@ public class TimesGraph extends GridGraph {
 
     private void drawDetails(Canvas canvas) {
         getParent().requestDisallowInterceptTouchEvent(true);
-        if (!moveEnable || onMoveListener == null) {
+        if (!isMovable || onMoveListener == null) {
             return;
         }
         if (showDetails && touchX > left && touchX < right) {
@@ -320,14 +318,13 @@ public class TimesGraph extends GridGraph {
                 drawTextBelowPoint(privateModel.price, left - X_LEFT_TEXT_OFFSET, y, Paint.Align.RIGHT, paint, canvas);
                 drawTextBelowPoint(privateModel.ratio, right + X_RIGHT_TEXT_OFFSET, y, Paint.Align.LEFT, paint, canvas);
             } else {
-                drawTextBelowPoint(decimalFormat.format(maxVolume), left - X_LEFT_TEXT_OFFSET, y, Paint.Align.RIGHT, paint, canvas);
+                drawTextBelowPoint(GraphUtils.getValueInfo(maxVolume, false), left - X_LEFT_TEXT_OFFSET, y, Paint.Align.RIGHT, paint, canvas);
                 drawTextBelowPoint(privateModel.ratio, right + X_RIGHT_TEXT_OFFSET, y, Paint.Align.LEFT, paint, canvas);
             }
-
         }
 
         canvas.drawLine(left, bottom, right, bottom, paint);
-        String text = decimalFormat.format(maxVolume) + "股";
+        String text = GraphUtils.getValueInfo(maxVolume, true) + "股";
         paint.setTextAlign(Paint.Align.RIGHT);
         canvas.drawText(text, left - X_LEFT_TEXT_OFFSET, bottom, paint);
     }
