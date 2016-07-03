@@ -18,7 +18,7 @@ public class ActivityElastic extends BaseActivity {
     @Override
     protected void initialize() {
         setExtraContent(R.layout.activity_elastic);
-        ListView listView = findMyViewById(R.id.listView);
+        ListView listView = getViewById(R.id.listView);
         List<String> strings = new ArrayList<>();
         for (int i = 10; i < 30; i++) {
             strings.add("This is Item " + i);

@@ -12,9 +12,6 @@ import android.widget.Toast;
 import com.example.wytings.R;
 import com.example.wytings.widget.WaitDialog;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
-
 /**
  * Created by Rex on 2016/3/12.
  * https://github.com/wytings
@@ -24,10 +21,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private WaitDialog waitDialog;
     private Toast toast;
 
-    @Bind(R.id.buttonsContainer)
     LinearLayout buttonsContainer;
 
-    @Bind(R.id.contentContainer)
     LinearLayout contentContainer;
 
     @Override
@@ -59,7 +54,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @SuppressLint("all")
     private void baseInit() {
         setContentView(R.layout.activity_base);
-        ButterKnife.bind(this);
+        buttonsContainer = (LinearLayout) findViewById(R.id.buttonsContainer);
+        contentContainer = (LinearLayout) findViewById(R.id.contentContainer);
         toast = Toast.makeText(this, null, Toast.LENGTH_SHORT);
         waitDialog = new WaitDialog(this);
         if (getSupportActionBar() != null) {
@@ -84,8 +80,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    public <T extends View> T findMyViewById(int id) {
-        return ButterKnife.findById(contentContainer, id);
+    public <T extends View> T getViewById(int id) {
+        return (T) contentContainer.findViewById(id);
     }
 
     protected abstract void initialize();

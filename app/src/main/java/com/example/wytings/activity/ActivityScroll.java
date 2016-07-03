@@ -17,7 +17,7 @@ public class ActivityScroll extends BaseActivity {
     @Override
     protected void initialize() {
         setExtraContent(R.layout.activity_scroll);
-        scrollView = findMyViewById(R.id.scrollView);
+        scrollView = getViewById(R.id.scrollView);
         scrollView.setOnScrollChangeListener(new SuperScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChanged(ScrollView view, SuperScrollView.ScrollState state) {

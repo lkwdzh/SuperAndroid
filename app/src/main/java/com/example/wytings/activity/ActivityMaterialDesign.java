@@ -39,7 +39,7 @@ public class ActivityMaterialDesign extends BaseActivity {
             textView.setText("This is No." + i + " content.");
             textViewList.add(textView);
         }
-        ViewPager viewPager = findMyViewById(R.id.viewPager);
+        ViewPager viewPager = getViewById(R.id.viewPager);
         viewPager.setAdapter(new PagerAdapter() {
             @Override
             public int getCount() {
@@ -67,14 +67,14 @@ public class ActivityMaterialDesign extends BaseActivity {
                 return view == object;
             }
         });
-        TabLayout tabLayout = findMyViewById(R.id.tabLayout);
+        TabLayout tabLayout = getViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(viewPager);
         //tabLayout.addTab(tabLayout.newTab(),true);
 
     }
 
     private void initFloatingActionButton() {
-        FloatingActionButton floatingActionButton = findMyViewById(R.id.floatingActionButton);
+        FloatingActionButton floatingActionButton = getViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,11 +84,11 @@ public class ActivityMaterialDesign extends BaseActivity {
     }
 
     private void initTextInput() {
-        final TextInputLayout textInputLayout = findMyViewById(R.id.texInputLayout);
+        final TextInputLayout textInputLayout = getViewById(R.id.texInputLayout);
         if (textInputLayout.getEditText() == null) {
             return;
         }
-        findMyViewById(R.id.check).setOnClickListener(new View.OnClickListener() {
+        getViewById(R.id.check).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ("rex".equals(textInputLayout.getEditText().getText().toString())) {

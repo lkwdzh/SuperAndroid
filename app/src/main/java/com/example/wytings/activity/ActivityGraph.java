@@ -32,7 +32,7 @@ public class ActivityGraph extends BaseActivity {
     @Override
     protected void initialize() {
         setExtraContent(R.layout.activity_graph);
-        tabLayout = findMyViewById(R.id.tabLayout);
+        tabLayout = getViewById(R.id.tabLayout);
         initGraph();
         titles.add("分时");
         titles.add("五日");
@@ -64,7 +64,7 @@ public class ActivityGraph extends BaseActivity {
     }
 
     private void initGraph() {
-        timesGraph = findMyViewById(R.id.timesGraph);
+        timesGraph = getViewById(R.id.timesGraph);
         timesGraph.setOnMoveListener(new GridGraph.OnMoveListener() {
             @Override
             public void onMove(Object object) {
@@ -75,7 +75,7 @@ public class ActivityGraph extends BaseActivity {
                 }
             }
         });
-        candleGraph = findMyViewById(R.id.candleGraph);
+        candleGraph = getViewById(R.id.candleGraph);
         candleGraph.setOnMoveListener(new GridGraph.OnMoveListener() {
             @Override
             public void onMove(Object object) {
